@@ -16,6 +16,8 @@ class Meteorite extends Sprite
 	public var asteroid : Sprite;
 	public var centralCircle : Sprite;
 	public var trail : Shape;
+	public var hitcircle : Shape;
+	
 	public function new() 
 	{
 		super();
@@ -28,7 +30,14 @@ class Meteorite extends Sprite
 		asteroid.x = (centralCircle.x - asteroid.width/2);
 		asteroid.y = (centralCircle.y - asteroid.height/2);
 		
+		hitcircle = new Shape();
+		hitcircle.graphics.beginFill(0xFF0000);
+		hitcircle.alpha = 0;
+		hitcircle.graphics.drawCircle(centralCircle.x+14, centralCircle.y+43, asteroid.width/2-10);
+		hitcircle.graphics.endFill (); 
+		
 		addChild(centralCircle);
+		addChild(hitcircle);
 		centralCircle.addChild(asteroid);
 	}
 	

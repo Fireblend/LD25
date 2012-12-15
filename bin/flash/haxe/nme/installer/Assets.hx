@@ -38,6 +38,20 @@ class Assets {
 			resourceTypes.set ("assets/gfx/planet2.png", "image");
 			resourceClasses.set ("assets/gfx/planet3.png", NME_assets_gfx_planet3_png);
 			resourceTypes.set ("assets/gfx/planet3.png", "image");
+			resourceClasses.set ("assets/music/music.wav", NME_assets_music_music_wav);
+			resourceTypes.set ("assets/music/music.wav", "sound");
+			resourceClasses.set ("assets/sound/dm.wav", NME_assets_sound_dm_wav);
+			resourceTypes.set ("assets/sound/dm.wav", "sound");
+			resourceClasses.set ("assets/sound/dp.wav", NME_assets_sound_dp_wav);
+			resourceTypes.set ("assets/sound/dp.wav", "sound");
+			resourceClasses.set ("assets/sound/hm.wav", NME_assets_sound_hm_wav);
+			resourceTypes.set ("assets/sound/hm.wav", "sound");
+			resourceClasses.set ("assets/sound/ms.wav", NME_assets_sound_ms_wav);
+			resourceTypes.set ("assets/sound/ms.wav", "sound");
+			resourceClasses.set ("assets/music/music.wav", NME_assets_music_music_wav1);
+			resourceTypes.set ("assets/music/music.wav", "music");
+			resourceClasses.set ("assets/sound/music.wav", NME_assets_sound_music_wav);
+			resourceTypes.set ("assets/sound/music.wav", "sound");
 			
 			initialized = true;
 			

@@ -5,6 +5,8 @@ import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.events.Event;
 import nme.Lib;
+import nme.media.Sound;
+import nme.media.SoundChannel;
 import nme.system.System;
 import nme.display.Shape;
 /**
@@ -87,8 +89,26 @@ class Main extends Sprite
 		SCREEN_GAME = new GameScreen(this);
 		SCREEN_END = new EndScreen(this);
 		
+		//Music start
+		/*var sound : Sound = Utils.loadSound ("assets/music/music.wav");
+
+		var channel :SoundChannel = sound.play (0,-1);
+	
+		#if flash
+		doUglyMusicFlashFix(sound, channel);
+		#end
+		*/
 		//Activate first screen
 		goToScreen(SCREEN_GAME);
+	}
+	
+	public function doUglyMusicFlashFix(sound :Sound, channel:SoundChannel) {
+		
+		channel.addEventListener(Event.SOUND_COMPLETE,function(e:Event):Void {
+			channel.stop();
+			channel = sound.play(0);
+			doUglyMusicFlashFix(sound, channel);
+		});
 	}
 	
 	//Handle screen switching

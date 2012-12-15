@@ -117,6 +117,41 @@ class ApplicationMain {
             return Assets.getBitmapData ("assets/gfx/planet3.png");
          
 		
+		if (inName=="assets/music/music.wav")
+			 
+            return Assets.getSound ("assets/music/music.wav");
+         
+		
+		if (inName=="assets/sound/dm.wav")
+			 
+            return Assets.getSound ("assets/sound/dm.wav");
+         
+		
+		if (inName=="assets/sound/dp.wav")
+			 
+            return Assets.getSound ("assets/sound/dp.wav");
+         
+		
+		if (inName=="assets/sound/hm.wav")
+			 
+            return Assets.getSound ("assets/sound/hm.wav");
+         
+		
+		if (inName=="assets/sound/ms.wav")
+			 
+            return Assets.getSound ("assets/sound/ms.wav");
+         
+		
+		if (inName=="assets/music/music.wav")
+			 
+            return Assets.getSound ("assets/music/music.wav");
+		 
+		
+		if (inName=="assets/sound/music.wav")
+			 
+            return Assets.getSound ("assets/sound/music.wav");
+         
+		
 		
 		return null;
 		
@@ -142,4 +177,11 @@ class NME_assets_gfx_mine_png extends nme.display.BitmapData { public function n
 class NME_assets_gfx_planet1_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
 class NME_assets_gfx_planet2_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
 class NME_assets_gfx_planet3_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
+class NME_assets_music_music_wav extends nme.media.Sound { }
+class NME_assets_sound_dm_wav extends nme.media.Sound { }
+class NME_assets_sound_dp_wav extends nme.media.Sound { }
+class NME_assets_sound_hm_wav extends nme.media.Sound { }
+class NME_assets_sound_ms_wav extends nme.media.Sound { }
+class NME_assets_music_music_wav1 extends nme.media.Sound { }
+class NME_assets_sound_music_wav extends nme.media.Sound { }
 

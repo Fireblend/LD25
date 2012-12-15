@@ -12,6 +12,7 @@ import nme.system.System;
 import nme.text.TextField;
 import nme.text.TextFormat;
 import nme.geom.Rectangle;
+import nme.Assets;
 
 import com.eclecticdesignstudio.motion.Actuate;
 import com.eclecticdesignstudio.motion.easing.Quad;
@@ -82,9 +83,7 @@ class GameScreen implements Screen, extends Sprite
 		gameMain.addEventListener(MouseEvent.MOUSE_MOVE, onMove);
 		gameMain.addEventListener(MouseEvent.MOUSE_UP, onStopDrag);
 		
-		trace("H1");
 		thisFiresEverySecond();
-		trace("H2");
 	}
 	
     public function onDrag(e:MouseEvent):Void { 
@@ -134,9 +133,9 @@ class GameScreen implements Screen, extends Sprite
 			planets.push(newPlanet);
 		}
 		
-		if (Std.random(2) < 1 && mines.length < 9) {
+		if (Std.random(2) < 1 && mines.length < 12) {
 			var newMine : Mine = new Mine();
-			var scaleFactor : Float = ((gameMain.screenHeight / 28) / newMine.height);
+			var scaleFactor : Float = ((gameMain.screenHeight / 35) / newMine.height);
 		
 			newMine.scaleX = scaleFactor;
 			newMine.scaleY = scaleFactor;
@@ -152,7 +151,8 @@ class GameScreen implements Screen, extends Sprite
 			mines.push(newMine);
 		}
 		
-		Actuate.timer (0.3).onComplete (thisFiresEverySecond, []);
+		Actuate.timer (0.25).onComplete (thisFiresEverySecond, []);
+		
 	}
 	
 	public function handleFrame(event:Event) {
@@ -166,14 +166,29 @@ class GameScreen implements Screen, extends Sprite
 				planets[i].delete = true;
 			}
 			planets[i].x += planets[i].speed;
+			
+			if (planets[i].hitcircle.hitTestObject(meteorite.hitcircle) && planets[i].untouched) {
+				planets[i].untouched = false;
+				var sound  = Utils.loadSound ("assets/sound/dp.wav");
+				planets[i].explode();
+				sound.play (0, -1);
+				score += Std.int(planets[i].width);
+			}
+			
 		}
 		for (i in 0...mines.length) {
 			if (mines[i].x > Lib.current.stage.stageWidth) {
 				mines[i].delete = true;
 			}
 			mines[i].x += mines[i].speed;
+			
+			if (mines[i].hitcircle.hitTestObject(meteorite.hitcircle) && mines[i].untouched ) {
+				mines[i].untouched = false;
+				var sound = Utils.loadSound ("assets/sound/hm.wav");
+				mines[i].explode();
+				sound.play (0, -1);
+			}
 		}
-		
 		
 		var st:Int = 0;
 				
@@ -211,6 +226,10 @@ class GameScreen implements Screen, extends Sprite
 		
 		addChild(meteorite);
 		
+		scoreField.text = "Score: "+score;
+		scoreField.width = 200;
+		var textFormat:TextFormat = new TextFormat ("_sans", 30, 0xFFFFFF);
+		scoreField.setTextFormat (textFormat);
 	}
 	public function drawScreen(event:Event){
 		
