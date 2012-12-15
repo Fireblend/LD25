@@ -25,9 +25,13 @@ class Planet extends Sprite
 		planetSprite = Utils.loadGraphic (path, true, true);
 		
 		hitcircle = new Shape();
-		hitcircle.graphics.beginFill(0x1A2B59);
+		hitcircle.graphics.beginFill(0xFFFF00);
 		hitcircle.alpha = 0;
-		hitcircle.graphics.drawCircle(planetSprite.width/2, planetSprite.height/2, planetSprite.width/2-10);
+		#if android
+		hitcircle.graphics.drawCircle(planetSprite.width / 2, planetSprite.height / 2, planetSprite.width / 2 + 10);
+		#else
+		hitcircle.graphics.drawCircle(planetSprite.width / 2, planetSprite.height / 2, planetSprite.width / 2 - 10);
+		#end
 		hitcircle.graphics.endFill (); 
 		
 		

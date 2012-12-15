@@ -30,6 +30,8 @@ class Assets {
 			
 			resourceClasses.set ("assets/gfx/astrid.png", NME_assets_gfx_astrid_png);
 			resourceTypes.set ("assets/gfx/astrid.png", "image");
+			resourceClasses.set ("assets/gfx/hitplan.png", NME_assets_gfx_hitplan_png);
+			resourceTypes.set ("assets/gfx/hitplan.png", "image");
 			resourceClasses.set ("assets/gfx/mine.png", NME_assets_gfx_mine_png);
 			resourceTypes.set ("assets/gfx/mine.png", "image");
 			resourceClasses.set ("assets/gfx/planet1.png", NME_assets_gfx_planet1_png);
