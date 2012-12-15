@@ -124,7 +124,7 @@ class Main extends Sprite
 			circle.graphics.drawCircle(0, 0, starSize*(1+(Std.random(5)/10)));
 			circle.graphics.endFill ();
 			circle.alpha = 0.7+(Std.random(3)/10);
-			circle.speed = 2 + Std.random(3);
+			circle.speed = 2 + Std.random(5);
 			
 			addChild(circle);
 			stars.push(circle);

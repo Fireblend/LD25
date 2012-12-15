@@ -28,6 +28,8 @@ class Assets {
 		
 		if (!initialized) {
 			
+			resourceClasses.set ("assets/gfx/astrid.png", NME_assets_gfx_astrid_png);
+			resourceTypes.set ("assets/gfx/astrid.png", "image");
 			
 			initialized = true;
 			

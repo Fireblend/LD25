@@ -92,6 +92,11 @@ class ApplicationMain {
 	public static function getAsset (inName:String):Dynamic {
 		
 		
+		if (inName=="assets/gfx/astrid.png")
+			 
+            return Assets.getBitmapData ("assets/gfx/astrid.png");
+         
+		
 		
 		return null;
 		
@@ -112,4 +117,5 @@ class ApplicationMain {
 }
 
 
+class NME_assets_gfx_astrid_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
 
