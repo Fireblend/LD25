@@ -24,7 +24,6 @@ class Meteorite extends Sprite
 		scaleFactor = 1;
 		
 		centralCircle = new Sprite();
-		centralCircle.visible = true;
 		
 		asteroid.x = (centralCircle.x - asteroid.width/2);
 		asteroid.y = (centralCircle.y - asteroid.height/2);

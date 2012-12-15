@@ -97,6 +97,26 @@ class ApplicationMain {
             return Assets.getBitmapData ("assets/gfx/astrid.png");
          
 		
+		if (inName=="assets/gfx/mine.png")
+			 
+            return Assets.getBitmapData ("assets/gfx/mine.png");
+         
+		
+		if (inName=="assets/gfx/planet1.png")
+			 
+            return Assets.getBitmapData ("assets/gfx/planet1.png");
+         
+		
+		if (inName=="assets/gfx/planet2.png")
+			 
+            return Assets.getBitmapData ("assets/gfx/planet2.png");
+         
+		
+		if (inName=="assets/gfx/planet3.png")
+			 
+            return Assets.getBitmapData ("assets/gfx/planet3.png");
+         
+		
 		
 		return null;
 		
@@ -118,4 +138,8 @@ class ApplicationMain {
 
 
 class NME_assets_gfx_astrid_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
+class NME_assets_gfx_mine_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
+class NME_assets_gfx_planet1_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
+class NME_assets_gfx_planet2_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
+class NME_assets_gfx_planet3_png extends nme.display.BitmapData { public function new () { super (0, 0); } }
 

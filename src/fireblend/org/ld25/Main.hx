@@ -113,7 +113,7 @@ class Main extends Sprite
 	//Redirect enterFrame event to current screen.
 	private function this_onEnterFrame (event:Event):Void {
 		
-		if (Std.random(7)<1) {
+		if (Std.random(7)<1 && stars.length < 40) {
 			var y : Int = Std.random(Lib.current.stage.stageHeight);
 			var x : Int = -starSize;
 			
