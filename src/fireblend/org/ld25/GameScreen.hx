@@ -81,6 +81,10 @@ class GameScreen implements Screen, extends Sprite
 		gameMain.addEventListener(MouseEvent.MOUSE_DOWN, onDrag);
 		gameMain.addEventListener(MouseEvent.MOUSE_MOVE, onMove);
 		gameMain.addEventListener(MouseEvent.MOUSE_UP, onStopDrag);
+		
+		trace("H1");
+		thisFiresEverySecond();
+		trace("H2");
 	}
 	
     public function onDrag(e:MouseEvent):Void { 
@@ -105,18 +109,17 @@ class GameScreen implements Screen, extends Sprite
 		}
     }
 	
-	
-	
-	public function handleFrame(event:Event){
+	public function thisFiresEverySecond() {
+		
 		if (!started) {
 			return;
 		}
 		
-		if (Std.random(100 - (20*(5-planets.length))) < 1 ) {
+		if (Std.random(9 - (2*(4-planets.length))) < 1 ) {
 			var newPlanet :Planet = new Planet();
 			var scaleFactor : Float = ((gameMain.screenHeight / 8) / newPlanet.height);
-			//var scaleModifier : Int = Std.random(10)+1;
-			//scaleFactor = scaleFactor * ((scaleModifier/10)+1) ;
+			var scaleModifier : Int = Std.random(6)+1;
+			scaleFactor = scaleFactor * ((scaleModifier/10)+1) ;
 		
 			newPlanet.scaleX = scaleFactor;
 			newPlanet.scaleY = scaleFactor;
@@ -131,8 +134,7 @@ class GameScreen implements Screen, extends Sprite
 			planets.push(newPlanet);
 		}
 		
-		
-		if (Std.random(70) < 1 ) {
+		if (Std.random(2) < 1 && mines.length < 9) {
 			var newMine : Mine = new Mine();
 			var scaleFactor : Float = ((gameMain.screenHeight / 28) / newMine.height);
 		
@@ -149,6 +151,16 @@ class GameScreen implements Screen, extends Sprite
 			addChild(newMine);
 			mines.push(newMine);
 		}
+		
+		Actuate.timer (0.3).onComplete (thisFiresEverySecond, []);
+	}
+	
+	public function handleFrame(event:Event) {
+		
+		if (!started) {
+			return;
+		}
+		
 		for (i in 0...planets.length) {
 			if (planets[i].x > Lib.current.stage.stageWidth) {
 				planets[i].delete = true;
@@ -162,14 +174,19 @@ class GameScreen implements Screen, extends Sprite
 			mines[i].x += mines[i].speed;
 		}
 		
+		
 		var st:Int = 0;
 				
 		while (st < planets.length) {
 			var planet :Planet = planets[st];
 				
-			if (planet.delete) {
-				removeChild(planet);
-				planets.remove(planet);
+			if (planet != null && planet.delete) {
+				if(planets.remove(planet)){
+					removeChild(planet);
+				}
+				else {
+					break;
+				}
 			}
 			else {
 				st += 1;
@@ -179,9 +196,13 @@ class GameScreen implements Screen, extends Sprite
 		while (st < mines.length) {
 			var mine :Mine = mines[st];
 				
-			if (mine.delete) {
-				removeChild(mine);
-				mines.remove(mine);
+			if (mine != null && mine.delete) {
+				if(mines.remove(mine)){
+					removeChild(mine);
+				}
+				else {
+					break;
+				}
 			}
 			else {
 				st += 1;
