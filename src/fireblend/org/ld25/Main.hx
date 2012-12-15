@@ -90,14 +90,14 @@ class Main extends Sprite
 		SCREEN_END = new EndScreen(this);
 		
 		//Music start
-		/*var sound : Sound = Utils.loadSound ("assets/music/music.wav");
+		var sound : Sound = Utils.loadSound ("assets/music/music.ogg");
 
 		var channel :SoundChannel = sound.play (0,-1);
 	
 		#if flash
 		doUglyMusicFlashFix(sound, channel);
 		#end
-		*/
+		
 		//Activate first screen
 		goToScreen(SCREEN_GAME);
 	}
