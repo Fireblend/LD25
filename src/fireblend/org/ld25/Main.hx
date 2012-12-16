@@ -17,9 +17,9 @@ import nme.display.Shape;
 class Main extends Sprite
 {
 	//Screens of the game
-	private var SCREEN_MENU:Screen;
-	private var SCREEN_GAME:Screen;
-	private var SCREEN_END:Screen;
+	public var SCREEN_MENU:Screen;
+	public var SCREEN_GAME:Screen;
+	public var SCREEN_END:Screen;
 	
 	//Size variables
 	private var setHeight:Float;
@@ -33,6 +33,9 @@ class Main extends Sprite
 	
 	//Current active screen
 	private var currentScreen:Screen;
+	
+	//Current score
+	public var score:Int;
 	
 	public function new() {
 		super ();

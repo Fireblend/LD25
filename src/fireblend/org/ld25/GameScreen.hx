@@ -25,7 +25,6 @@ class GameScreen implements Screen, extends Sprite
 {
 
 	private var gameMain:Main;
-	private var score:Int;
 	private var planets:Array<Planet>;
 	private var mines:Array<Mine>;
 	private var meteorite:Meteorite;
@@ -36,6 +35,10 @@ class GameScreen implements Screen, extends Sprite
 	private var startedDragOnY: Float;
 	private var startingYForMeteorite: Float;
 	private var hitPlanet:Sprite;
+	private var life :Int;
+	private var life1 :Sprite;
+	private var life2 :Sprite;
+	private var life3 :Sprite;
 	
 	public function new(newGameMain:Main) 
 	{
@@ -48,12 +51,14 @@ class GameScreen implements Screen, extends Sprite
 	
 	public function initialize() {
 		
-		score = 0;
+		gameMain.score = 0;
 		started = false;
 		meteorite = new Meteorite();
 		addChild(meteorite);
 		paused = false;
 		userDragging = false;
+		life = 3;
+		
 		planets = new Array<Planet>();
 		mines = new Array<Mine>();
 		
@@ -66,6 +71,29 @@ class GameScreen implements Screen, extends Sprite
 		scoreField.y = 6;
 		scoreField.alpha = 0;
 		addChild(scoreField);
+		
+		
+		life1 = Utils.loadGraphic ("assets/gfx/heart.png", true, true);
+		life2 = Utils.loadGraphic ("assets/gfx/heart.png", true, true);
+		life3 = Utils.loadGraphic ("assets/gfx/heart.png", true, true);
+		var scaleForHearts : Float = (gameMain.screenHeight / 14) / life1.height;
+		life1.y = 7;
+		life2.y = 7;
+		life3.y = 7;
+		life1.scaleX = scaleForHearts;
+		life2.scaleX = scaleForHearts;
+		life3.scaleX = scaleForHearts;
+		life1.scaleY = scaleForHearts;
+		life2.scaleY = scaleForHearts;
+		life3.scaleY = scaleForHearts;
+		life3.scaleY = scaleForHearts;
+		life1.x = gameMain.screenWidth - (gameMain.screenWidth/14)*3;
+		life2.x = gameMain.screenWidth - (gameMain.screenWidth/14)*2;
+		life3.x = gameMain.screenWidth - (gameMain.screenWidth/14)*1;
+		
+		addChild(life1);
+		addChild(life2);
+		addChild(life3);
 		
 		var scaleFactor : Float = (gameMain.screenHeight / 3) / meteorite.height ;
 		meteorite.scaleX = scaleFactor;
@@ -163,46 +191,13 @@ class GameScreen implements Screen, extends Sprite
 			mines.push(newMine);
 		}
 		
-		Actuate.timer (0.25).onComplete (thisFiresEverySecond, []);
+		Actuate.timer (0.1).onComplete (thisFiresEverySecond, []);
 		
 	}
 	
 	public function handleFrame(event:Event) {
+		var endGame = false;
 		
-		if (!started) {
-			return;
-		}
-		
-		var comparison : Sprite = hitPlanet;
-		
-		for (i in 0...planets.length) {
-			if (planets[i].x > Lib.current.stage.stageWidth) {
-				planets[i].delete = true;
-			}
-			planets[i].x += planets[i].speed;
-			
-			if (comparison.hitTestObject(planets[i].hitcircle) && planets[i].untouched) {
-				planets[i].untouched = false;
-				var sound  = Utils.loadSound ("assets/sound/dp.wav");
-				planets[i].explode();
-				sound.play ();
-				score += Std.int(planets[i].width);
-			}
-		}
-		
-		for (i in 0...mines.length) {
-			if (mines[i].x > Lib.current.stage.stageWidth) {
-				mines[i].delete = true;
-			}
-			mines[i].x += mines[i].speed;
-			
-			if (comparison.hitTestObject(mines[i].hitcircle) && mines[i].untouched ) {
-				mines[i].untouched = false;
-				var sound = Utils.loadSound ("assets/sound/hm.wav");
-				mines[i].explode();
-				sound.play ();
-			}
-		}
 		
 		var st:Int = 0;
 				
@@ -238,12 +233,90 @@ class GameScreen implements Screen, extends Sprite
 			}
 		}
 		
-		addChild(meteorite);
+		if (!started) {
+			return;
+		}
 		
-		scoreField.text = "Score: "+ score;
+		var comparison : Sprite = hitPlanet;
+		
+		for (i in 0...planets.length) {
+			if (planets[i].x > Lib.current.stage.stageWidth) {
+				planets[i].delete = true;
+			}
+			planets[i].x += planets[i].speed;
+			
+			if (comparison.hitTestObject(planets[i].hitcircle) && planets[i].untouched) {
+				planets[i].untouched = false;
+				var sound  = Utils.loadSound ("assets/sound/dp.wav");
+				planets[i].explode();
+				sound.play ();
+				gameMain.score += Std.int(planets[i].width);
+			}
+		}
+		
+		for (i in 0...mines.length) {
+			if (mines[i].x > Lib.current.stage.stageWidth) {
+				mines[i].delete = true;
+			}
+			mines[i].x += mines[i].speed;
+			
+			if (comparison.hitTestObject(mines[i].hitcircle) && mines[i].untouched ) {
+				mines[i].untouched = false;
+				var sound = Utils.loadSound ("assets/sound/hm.wav");
+				mines[i].explode();
+				sound.play ();
+				life--;
+				if (life > -1) {
+					if (life == 2) {
+						removeChild(life3);
+					}
+					if (life == 1) {
+						removeChild(life2);
+					}
+					if (life == 0) {
+						removeChild(life1);
+						endGame = true;
+					}
+				}
+			}
+		}
+	
+		//addChild(meteorite);
+		
+		scoreField.text = "Score: "+ gameMain.score;
 		scoreField.width = 2000;
 		var textFormat:TextFormat = new TextFormat ("_sans", 30, 0xFFFFFF);
 		scoreField.setTextFormat (textFormat);
+		
+		
+		if (endGame) {
+			cleanUp();
+		}
+	}
+	
+	public function cleanUp() {
+		started = false;
+		
+		for (i in 0...planets.length) {
+			planets[i].untouched = false;
+			var sound  = Utils.loadSound ("assets/sound/dp.wav");
+			planets[i].explode();
+			sound.play ();
+		}
+		
+		for (i in 0...mines.length) {
+			mines[i].untouched = false;
+			var sound  = Utils.loadSound ("assets/sound/dm.wav");
+			mines[i].explode();
+			sound.play ();
+		}
+		
+		var sound  = Utils.loadSound ("assets/sound/dm.wav");
+		sound.play (0,3);
+		
+		Actuate.tween (scoreField, 3, { alpha: 0 } );
+		Actuate.tween (meteorite, 3, { x: gameMain.screenWidth/3, y: gameMain.screenHeight } ).ease(Quad.easeIn).onComplete(gameMain.goToScreen, [gameMain.SCREEN_END]);
+		
 	}
 	public function drawScreen(event:Event){
 		
