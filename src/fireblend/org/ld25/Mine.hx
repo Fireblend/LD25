@@ -43,7 +43,7 @@ class Mine extends Sprite
 		explosionSprite.x = -explosionSprite.width / 2;
 		explosionSprite.y = -explosionSprite.height / 2;
 		addChild(explosionSprite);
-		Actuate.tween (explosionSprite, 0.75, { scaleX : 2, scaleY : 2, width : explosionSprite.width*2, height : explosionSprite.height*2 } ).onComplete(setDelete,[]);
+		Actuate.tween (explosionSprite, 0.75, { scaleX : 2, scaleY : 2, width : explosionSprite.width*2, height : explosionSprite.height*2, alpha:0.1 } ).onComplete(setDelete,[]);
 	}
 	
 	public function setDelete() {

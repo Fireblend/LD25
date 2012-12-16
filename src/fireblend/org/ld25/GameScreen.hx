@@ -53,7 +53,16 @@ class GameScreen implements Screen, extends Sprite
 		
 		gameMain.score = 0;
 		started = false;
-		meteorite = new Meteorite();
+		var scaleFactor : Float;
+		if(meteorite == null){
+			meteorite = new Meteorite();
+			scaleFactor = (gameMain.screenHeight / 3) / meteorite.height ;
+			meteorite.scaleX = scaleFactor;
+			meteorite.scaleY = scaleFactor;
+		}
+		else {
+			scaleFactor = meteorite.scaleFactor;
+		}
 		addChild(meteorite);
 		paused = false;
 		userDragging = false;
@@ -72,7 +81,7 @@ class GameScreen implements Screen, extends Sprite
 		scoreField.alpha = 0;
 		addChild(scoreField);
 		
-		
+		if (life1 == null){
 		life1 = Utils.loadGraphic ("assets/gfx/heart.png", true, true);
 		life2 = Utils.loadGraphic ("assets/gfx/heart.png", true, true);
 		life3 = Utils.loadGraphic ("assets/gfx/heart.png", true, true);
@@ -90,14 +99,15 @@ class GameScreen implements Screen, extends Sprite
 		life1.x = gameMain.screenWidth - (gameMain.screenWidth/14)*3;
 		life2.x = gameMain.screenWidth - (gameMain.screenWidth/14)*2;
 		life3.x = gameMain.screenWidth - (gameMain.screenWidth/14)*1;
+		}
+		life1.alpha = 0;
+		life2.alpha = 0;
+		life3.alpha = 0;
 		
 		addChild(life1);
 		addChild(life2);
 		addChild(life3);
 		
-		var scaleFactor : Float = (gameMain.screenHeight / 3) / meteorite.height ;
-		meteorite.scaleX = scaleFactor;
-		meteorite.scaleY = scaleFactor;
 		meteorite.scaleFactor = scaleFactor;
 		meteorite.x = gameMain.screenWidth+meteorite.width-10;
 		meteorite.y = gameMain.screenHeight / 2 - meteorite.height / 2;
@@ -113,6 +123,9 @@ class GameScreen implements Screen, extends Sprite
 		Actuate.tween (meteorite, 3, { x: gameMain.screenWidth-meteorite.width-(gameMain.screenWidth/12) } );
 		
 		Actuate.tween (scoreField, 3, { alpha: 1 } );
+		Actuate.tween (life1, 3, { alpha: 1 } );
+		Actuate.tween (life2, 3, { alpha: 1 } );
+		Actuate.tween (life3, 3, { alpha: 1 } );
 			
 		started = true;
 		
@@ -141,7 +154,7 @@ class GameScreen implements Screen, extends Sprite
     public function onMove(e:MouseEvent):Void { 
 		if (userDragging) {
 			var newY: Float = startingYForMeteorite + (e.stageY - startedDragOnY);
-			if (newY > 0 && newY < gameMain.screenHeight){
+			if (newY > -meteorite.height/2 && newY < gameMain.screenHeight-meteorite.height/2){
 				meteorite.y = newY;
 				hitPlanet.y = newY+(meteorite.height/3);	
 			}

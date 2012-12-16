@@ -102,7 +102,7 @@ class Main extends Sprite
 		#end
 		
 		//Activate first screen
-		goToScreen(SCREEN_GAME);
+		goToScreen(SCREEN_MENU);
 	}
 	
 	public function doUglyMusicFlashFix(sound :Sound, channel:SoundChannel) {
