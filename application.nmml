@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->
-	<app file="LudumDare25" title="Ludum Dare 25" main="fireblend.org.ld25.Main" package="fireblend.org.ld25" 
+	<app file="LudumDare25" title="Lunar Frenzy" main="fireblend.org.ld25.Main" package="fireblend.org.ld25" 
 		version="1.0.0" company="Sergio Morales" />
 		
 	<!-- output -->
@@ -14,7 +14,7 @@
 	<haxelib name="actuate" />
 	
 	<!-- assets -->
-	<icon name="assets/nme.svg" />
+	<icon name="assets/icon.svg" />
 	<assets path="assets" include="*" exclude="nme.svg" />
 	<assets path="assets/music" rename="assets/music" type="music" include="*" />
 	<assets path="assets/music" rename="assets/sound" type="sound" include="*" />
