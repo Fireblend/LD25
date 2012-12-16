@@ -25,6 +25,7 @@ class MenuScreen implements Screen, extends Sprite
 	private var scoreText:TextField;
 	private var buttonPlay:Sprite;
 	private var buttonHow:Sprite;
+	private var buttonExit:Sprite;
 	private var title:Sprite;
 	private var meteorite:Sprite;
 	private var credits:Sprite;
@@ -41,6 +42,7 @@ class MenuScreen implements Screen, extends Sprite
 		if(buttonPlay == null){
 			buttonPlay = Utils.loadGraphic("assets/gfx/playBtn.png", true, true);
 			buttonHow = Utils.loadGraphic("assets/gfx/howBtn.png", true, true);
+			buttonExit = Utils.loadGraphic("assets/gfx/exitBtn.png", true, true);
 			meteorite = Utils.loadGraphic("assets/gfx/astrid.png", true, true);
 			title = Utils.loadGraphic("assets/gfx/title.png", true, true);
 			credits = Utils.loadGraphic("assets/gfx/credits.png", true, true);
@@ -59,10 +61,11 @@ class MenuScreen implements Screen, extends Sprite
 		title.y = 20;
 		
 		buttonPlay.x = gameMain.screenWidth/10*1;
-		buttonPlay.y = gameMain.screenHeight / 6*3;
+		buttonPlay.y = gameMain.screenHeight / 7*3;
 		buttonHow.x = gameMain.screenWidth/10*2;
-		buttonHow.y = gameMain.screenHeight / 6*4;
-		
+		buttonHow.y = gameMain.screenHeight / 7*4+10;
+		buttonExit.x = gameMain.screenWidth/10*1;
+		buttonExit.y = gameMain.screenHeight / 7*5+20;
 		credits.x = gameMain.screenWidth - credits.width - 5;
 		credits.y = gameMain.screenHeight - credits.height - 5;
 		
@@ -70,6 +73,9 @@ class MenuScreen implements Screen, extends Sprite
 		addChild(meteorite);
 		addChild(buttonHow);
 		addChild(buttonPlay);
+		#if android
+		addChild(buttonExit);
+		#end
 		addChild(credits);
 		addChild(howTo);
 		howTo.x = gameMain.screenWidth / 2 - howTo.width / 2;
@@ -78,12 +84,18 @@ class MenuScreen implements Screen, extends Sprite
 		Actuate.tween (title, 1, { alpha: 1 } ).ease(Quad.easeInOut);
 		Actuate.tween (buttonHow, 1, { alpha: 1 } ).ease(Quad.easeInOut);
 		Actuate.tween (buttonPlay, 1, { alpha: 1 } ).ease(Quad.easeInOut);
+		#if android
+		Actuate.tween (buttonExit, 1, { alpha: 1 } ).ease(Quad.easeInOut);
+		#end
 		Actuate.tween (meteorite, 1, { alpha: 1 } ).ease(Quad.easeInOut);
 		Actuate.tween (credits, 1, { alpha: 1 } ).ease(Quad.easeInOut);
 		
 		title1();
 		buttonHow.addEventListener(MouseEvent.MOUSE_DOWN, buttonHow_onDown);
 		buttonPlay.addEventListener(MouseEvent.MOUSE_DOWN, buttonPlay_onDown);
+		#if android
+		buttonExit.addEventListener(MouseEvent.MOUSE_DOWN, buttonExit_onDown);
+		#end
 		howTo.addEventListener(MouseEvent.MOUSE_DOWN, buttonHowTo_onDown);
 	}
 	
@@ -102,6 +114,7 @@ class MenuScreen implements Screen, extends Sprite
 			Actuate.tween (title, 1, { alpha: 0 } ).ease(Quad.easeInOut);
 			Actuate.tween (buttonHow, 1, { alpha: 0 } ).ease(Quad.easeInOut);
 			Actuate.tween (buttonPlay, 1, { alpha: 0 } ).ease(Quad.easeInOut);
+			Actuate.tween (buttonExit, 1, { alpha: 0 } ).ease(Quad.easeInOut);
 			Actuate.tween (credits, 1, { alpha: 0 } ).ease(Quad.easeInOut);
 			Actuate.tween (meteorite, 1.2, { alpha: 0 } ).ease(Quad.easeInOut).onComplete(gameMain.goToScreen, [gameMain.SCREEN_GAME]);
 		}
@@ -118,7 +131,16 @@ class MenuScreen implements Screen, extends Sprite
 			hideHowTo();
 		}
 	}
-	
+	#if android
+	public function buttonExit_onDown (event:MouseEvent):Void {
+		if(howTo.alpha == 0){
+			Lib.exit();
+		}
+		else {
+			hideHowTo();
+		}
+	}
+	#end
 	public function buttonHowTo_onDown (event:MouseEvent):Void {
 		hideHowTo();
 	}
@@ -131,6 +153,7 @@ class MenuScreen implements Screen, extends Sprite
 		removeChild(title);
 		removeChild(buttonHow);
 		removeChild(buttonPlay);
+		removeChild(buttonExit);
 		removeChild(meteorite);
 	}
 	

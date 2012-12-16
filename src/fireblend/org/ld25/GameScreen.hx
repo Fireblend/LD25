@@ -191,7 +191,16 @@ class GameScreen implements Screen, extends Sprite
 		}
 		
 		if (Std.random(2) < 1 && mines.length < 10) {
-			var newMine : Mine = new Mine(this, Std.random(15)<1);
+			var scoreModifier : Int = 15;
+			
+			if (gameMain.score > 10000) {
+				scoreModifier = 4;
+			}
+			else {
+				scoreModifier = 15-Std.int(gameMain.score / 1000);
+			}
+			
+			var newMine : Mine = new Mine(this, (Std.random(scoreModifier)<1));
 			var scaleFactor : Float = ((gameMain.screenHeight / 35) / newMine.height);
 		
 			newMine.scaleX = scaleFactor;
