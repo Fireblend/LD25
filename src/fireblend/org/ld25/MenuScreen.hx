@@ -97,6 +97,7 @@ class MenuScreen implements Screen, extends Sprite
 	}
 	
 	public function buttonPlay_onDown (event:MouseEvent):Void {
+		Actuate.stop(title, alpha);
 		if(howTo.alpha == 0){
 			Actuate.tween (title, 1, { alpha: 0 } ).ease(Quad.easeInOut);
 			Actuate.tween (buttonHow, 1, { alpha: 0 } ).ease(Quad.easeInOut);

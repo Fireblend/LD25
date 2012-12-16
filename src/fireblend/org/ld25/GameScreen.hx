@@ -157,8 +157,9 @@ class GameScreen implements Screen, extends Sprite
 		if (userDragging) {
 			var newY: Float = startingYForMeteorite + (e.stageY - startedDragOnY);
 			if (newY > -meteorite.height/2 && newY < gameMain.screenHeight-meteorite.height/2){
+				meteorite.addDistance(Math.abs(meteorite.y-newY));
 				meteorite.y = newY;
-				hitPlanet.y = newY+(meteorite.height/3);	
+				hitPlanet.y = newY + (meteorite.height / 3);	
 			}
 		}
     }
@@ -188,7 +189,7 @@ class GameScreen implements Screen, extends Sprite
 			planets.push(newPlanet);
 		}
 		
-		if (Std.random(2) < 1 && mines.length < 11) {
+		if (Std.random(2) < 1 && mines.length < 10) {
 			var newMine : Mine = new Mine(this);
 			var scaleFactor : Float = ((gameMain.screenHeight / 35) / newMine.height);
 		

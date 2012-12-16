@@ -30,7 +30,8 @@ class Meteorite extends Sprite
 	}
 	
 	public function addMine() {
-		
+			if (mines.length > 4)
+				return;
 		var newMine : Mine = new Mine(gameScreen);
 		var xOffSet:Int;
 		var yOffSet:Int;
@@ -57,6 +58,15 @@ class Meteorite extends Sprite
 		addChild(newMine);
 		newMine.startBeeping();
 		mines.push(newMine);
+	}
+	
+	public function addDistance(dist:Float) {
+		for (i in 0...mines.length) {
+			mines[i].distance += dist;
+			if (mines[i].distance > 1500 && !mines[i].removed) {
+				mines[i].remove();
+			}
+		}
 	}
 	
 	public function reviewMines() {
