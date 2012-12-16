@@ -93,7 +93,7 @@ class Main extends Sprite
 		SCREEN_END = new EndScreen(this);
 		
 		//Music start
-		var sound : Sound = Utils.loadSound ("assets/music/music.wav");
+		var sound : Sound = Utils.loadSound ("assets/music/music.mp3");
 
 		var channel :SoundChannel = sound.play (0,-1);
 	
