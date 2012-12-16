@@ -39,6 +39,7 @@ class GameScreen implements Screen, extends Sprite
 	private var life1 :Sprite;
 	private var life2 :Sprite;
 	private var life3 :Sprite;
+	private var endGame : Bool;
 	
 	public function new(newGameMain:Main) 
 	{
@@ -54,8 +55,9 @@ class GameScreen implements Screen, extends Sprite
 		gameMain.score = 0;
 		started = false;
 		var scaleFactor : Float;
+		endGame = false;
 		if(meteorite == null){
-			meteorite = new Meteorite();
+			meteorite = new Meteorite(this);
 			scaleFactor = (gameMain.screenHeight / 3) / meteorite.height ;
 			meteorite.scaleX = scaleFactor;
 			meteorite.scaleY = scaleFactor;
@@ -186,8 +188,8 @@ class GameScreen implements Screen, extends Sprite
 			planets.push(newPlanet);
 		}
 		
-		if (Std.random(2) < 1 && mines.length < 12) {
-			var newMine : Mine = new Mine();
+		if (Std.random(2) < 1 && mines.length < 11) {
+			var newMine : Mine = new Mine(this);
 			var scaleFactor : Float = ((gameMain.screenHeight / 35) / newMine.height);
 		
 			newMine.scaleX = scaleFactor;
@@ -204,13 +206,11 @@ class GameScreen implements Screen, extends Sprite
 			mines.push(newMine);
 		}
 		
-		Actuate.timer (0.1).onComplete (thisFiresEverySecond, []);
+		Actuate.timer (0.12).onComplete (thisFiresEverySecond, []);
 		
 	}
 	
 	public function handleFrame(event:Event) {
-		var endGame = false;
-		
 		
 		var st:Int = 0;
 				
@@ -245,7 +245,7 @@ class GameScreen implements Screen, extends Sprite
 				st += 1;
 			}
 		}
-		
+		meteorite.reviewMines();
 		if (!started) {
 			return;
 		}
@@ -276,21 +276,9 @@ class GameScreen implements Screen, extends Sprite
 			if (comparison.hitTestObject(mines[i].hitcircle) && mines[i].untouched ) {
 				mines[i].untouched = false;
 				var sound = Utils.loadSound ("assets/sound/hm.wav");
-				mines[i].explode();
+				mines[i].stick();
 				sound.play ();
-				life--;
-				if (life > -1) {
-					if (life == 2) {
-						removeChild(life3);
-					}
-					if (life == 1) {
-						removeChild(life2);
-					}
-					if (life == 0) {
-						removeChild(life1);
-						endGame = true;
-					}
-				}
+				meteorite.addMine();
 			}
 		}
 	
@@ -304,6 +292,22 @@ class GameScreen implements Screen, extends Sprite
 		
 		if (endGame) {
 			cleanUp();
+		}
+	}
+	
+	public function lowerLife(){
+		life--;
+		if (life > -1) {
+			if (life == 2) {
+				removeChild(life3);
+			}
+			if (life == 1) {
+				removeChild(life2);
+			}
+			if (life == 0) {
+				removeChild(life1);
+				endGame = true;
+			}
 		}
 	}
 	

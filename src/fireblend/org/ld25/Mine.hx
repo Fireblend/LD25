@@ -16,13 +16,17 @@ class Mine extends Sprite
 	public var delete: Bool;
 	public var hitcircle: Shape;
 	public var untouched:Bool;
+	public var beeps:Int;
+	public var gameScreen:GameScreen;
 	
-	public function new() 
+	public function new(newgameScreen:GameScreen) 
 	{
 		super();
+		gameScreen = newgameScreen;
 		untouched = true;
 		var path :String = "assets/gfx/mine.png";
 		mineSprite = Utils.loadGraphic (path, true, true);
+		beeps = 3;
 		
 		hitcircle = new Shape();
 		hitcircle.graphics.beginFill(0xFFFF00);
@@ -30,9 +34,12 @@ class Mine extends Sprite
 		hitcircle.graphics.drawCircle(mineSprite.width/2, mineSprite.height/2, mineSprite.width/3);
 		hitcircle.graphics.endFill (); 
 		
-		
 		addChild(hitcircle);
 		addChild(mineSprite);
+	}
+	
+	public function stick() {
+		Actuate.tween (mineSprite, 0.5, { alpha:0 } );
 	}
 	
 	public function explode()
@@ -44,9 +51,25 @@ class Mine extends Sprite
 		explosionSprite.y = -explosionSprite.height / 2;
 		addChild(explosionSprite);
 		Actuate.tween (explosionSprite, 0.75, { scaleX : 2, scaleY : 2, width : explosionSprite.width*2, height : explosionSprite.height*2, alpha:0.1 } ).onComplete(setDelete,[]);
+		
+		Actuate.tween (mineSprite, 0.5, { alpha:0 } );
 	}
 	
 	public function setDelete() {
 		delete = true;
+	}
+	
+	public function startBeeping() {
+		if (beeps == 0) {
+			explode();
+			gameScreen.lowerLife();
+		}
+		else {
+			beeps--;
+			var sound  = Utils.loadSound ("assets/sound/ms.wav");
+			sound.play();
+			Actuate.timer (1).onComplete (startBeeping, []);
+		}
+		
 	}
 }
