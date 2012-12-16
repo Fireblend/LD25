@@ -73,7 +73,9 @@ class GameScreen implements Screen, extends Sprite
 		planets = new Array<Planet>();
 		mines = new Array<Mine>();
 		
-		scoreField = new TextField ();
+		if(scoreField==null){
+			scoreField = new TextField ();
+		}
 		scoreField.text = "Score: 0";
 		scoreField.width = 200;
 		var textFormat:TextFormat = new TextFormat ("_sans", 30, 0xFFFFFF);

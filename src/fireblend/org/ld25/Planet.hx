@@ -13,6 +13,7 @@ class Planet extends Sprite
 {
 	public var planetSprite :Sprite;
 	public var speed: Int;
+	public var planetId: Int;
 	public var delete: Bool;
 	public var hitcircle: Shape;
 	public var untouched:Bool;
@@ -21,7 +22,8 @@ class Planet extends Sprite
 	{
 		super();
 		untouched = true;
-		var path :String = "assets/gfx/planet"+(Std.random(3)+1)+".png";
+		planetId = Std.random(3) + 1;
+		var path :String = "assets/gfx/planet"+planetId+".png";
 		planetSprite = Utils.loadGraphic (path, true, true);
 		
 		hitcircle = new Shape();
@@ -41,7 +43,11 @@ class Planet extends Sprite
 	
 	public function explode()
 	{
-		Actuate.tween (planetSprite, 0.2, { alpha : 0.3 } ).reverse().repeat(3).onComplete(setDelete,[]);
+		Actuate.tween (planetSprite, 0.2, { alpha : 0 } );
+		var debris:Sprite = Utils.loadGraphic("assets/gfx/debris" + planetId + ".png", true, true);
+		
+		addChild(debris);
+		Actuate.tween (debris, 1, { scaleX : 1.5, scaleY: 1.5, x:debris.x-(debris.width/3), y:debris.y-(debris.height/3), alpha: 1} ).onComplete(setDelete,[]);
 		
 	}
 	
