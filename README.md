@@ -3,6 +3,16 @@ LD25
 
 A repo to hold my Ludum Dare 25 Entry. This should be a smaller project than the one I submitted for LD23, but we'll see how it goes!
 
+Lunar Frenzy
+===
+"After years of living under the shadow of puny planets, an oversized moon goes rogue, in a revenge-fueled trip across the universe with one goal only: smash all those planets into tiny little pieces. Will it succeed? Or will it fall to the many space-mines that litter the galaxy?" 
+
+![Screenshots](http://www.ludumdare.com/compo/wp-content/compo2/201083/10166-shot1.png)
+
+The game was made with touch controls in mind, so I strongly suggest you play the Android version if you have the chance. All comments are extremely appreciated! And don't forget to post your highscore! 
+
+Play the game here [FLASH](http://fireblend.github.com/LD25/index.html) or [ANDROID](https://www.dropbox.com/s/g5lc5zibjtvuyfs/Fireblend%20-%20Lunar%20Frenzy.apk)
+
 About Ludum Dare
 ====
 
