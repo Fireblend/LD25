@@ -191,7 +191,7 @@ class GameScreen implements Screen, extends Sprite
 		}
 		
 		if (Std.random(2) < 1 && mines.length < 10) {
-			var newMine : Mine = new Mine(this);
+			var newMine : Mine = new Mine(this, Std.random(15)<1);
 			var scaleFactor : Float = ((gameMain.screenHeight / 35) / newMine.height);
 		
 			newMine.scaleX = scaleFactor;
@@ -278,9 +278,9 @@ class GameScreen implements Screen, extends Sprite
 			if (comparison.hitTestObject(mines[i].hitcircle) && mines[i].untouched ) {
 				mines[i].untouched = false;
 				var sound = Utils.loadSound ("assets/sound/hm.wav");
+				meteorite.addMine(mines[i].gold);
 				mines[i].stick();
 				sound.play ();
-				meteorite.addMine();
 			}
 		}
 	

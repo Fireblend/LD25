@@ -21,9 +21,11 @@ class Mine extends Sprite
 	public var distance:Float;
 	public var removed:Bool;
 	public var exploded:Bool;
+	public var gold:Bool;
 	
-	public function new(newgameScreen:GameScreen) 
+	public function new(newgameScreen:GameScreen, newGold:Bool) 
 	{
+		gold = newGold;
 		super();
 		distance = 0;
 		removed = false;
@@ -31,6 +33,9 @@ class Mine extends Sprite
 		gameScreen = newgameScreen;
 		untouched = true;
 		var path :String = "assets/gfx/mine.png";
+		if(gold)
+			 path  = "assets/gfx/mine_gold.png";
+		
 		mineSprite = Utils.loadGraphic (path, true, true);
 		beeps = 3;
 		
@@ -45,7 +50,7 @@ class Mine extends Sprite
 	}
 	
 	public function stick() {
-		Actuate.tween (mineSprite, 0.5, { alpha:0 } );
+		Actuate.tween (mineSprite, 0.5, { alpha:0 } ).onComplete(setDelete);
 	}
 	
 	public function explodeDamage() {

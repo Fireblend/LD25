@@ -33,12 +33,12 @@ class Meteorite extends Sprite
 		addChild(asteroid);
 	}
 	
-	public function addMine() {
-		if (mines.length > 4){
+	public function addMine(gold:Bool) {
+		if (mines.length > 6){
 			mines[0].explodeDamage();
 			return;
 		}
-		var newMine : Mine = new Mine(gameScreen);
+		var newMine : Mine = new Mine(gameScreen, gold);
 		var xOffSet:Int;
 		var yOffSet:Int;
 		
@@ -69,7 +69,7 @@ class Meteorite extends Sprite
 	public function addDistance(dist:Float) {
 		for (i in 0...mines.length) {
 			mines[i].distance += dist;
-			if (mines[i].distance > 1500 && !mines[i].removed) {
+			if (mines[i].distance > 1500 && !mines[i].removed && !mines[i].gold) {
 				mines[i].remove();
 			}
 		}
