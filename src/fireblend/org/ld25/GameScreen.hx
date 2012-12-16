@@ -219,7 +219,7 @@ class GameScreen implements Screen, extends Sprite
 			mines.push(newMine);
 		}
 		
-		Actuate.timer (0.10).onComplete (thisFiresEverySecond, []);
+		Actuate.timer (0.12).onComplete (thisFiresEverySecond, []);
 		
 	}
 	

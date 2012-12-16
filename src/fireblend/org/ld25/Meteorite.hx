@@ -69,7 +69,7 @@ class Meteorite extends Sprite
 	public function addDistance(dist:Float) {
 		for (i in 0...mines.length) {
 			mines[i].distance += dist;
-			if (mines[i].distance > 1500 && !mines[i].removed && !mines[i].gold) {
+			if (mines[i].distance > 1200 && !mines[i].removed && !mines[i].gold) {
 				mines[i].remove();
 			}
 		}
