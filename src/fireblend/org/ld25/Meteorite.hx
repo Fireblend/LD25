@@ -18,9 +18,13 @@ class Meteorite extends Sprite
 	public var mines : Array<Mine>;
 	private var gameScreen: GameScreen;
 	
+	private var activeMines :Int;
+	
+	
 	public function new(newgameScreen:GameScreen) 
 	{
 		super();
+		activeMines = 0;
 		gameScreen = newgameScreen;
 		asteroid = Utils.loadGraphic ("assets/gfx/astrid.png", true);
 		scaleFactor = 1;
@@ -30,8 +34,10 @@ class Meteorite extends Sprite
 	}
 	
 	public function addMine() {
-			if (mines.length > 4)
-				return;
+		if (mines.length > 4){
+			mines[0].explodeDamage();
+			return;
+		}
 		var newMine : Mine = new Mine(gameScreen);
 		var xOffSet:Int;
 		var yOffSet:Int;

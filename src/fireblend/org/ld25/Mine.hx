@@ -20,12 +20,14 @@ class Mine extends Sprite
 	public var gameScreen:GameScreen;
 	public var distance:Float;
 	public var removed:Bool;
+	public var exploded:Bool;
 	
 	public function new(newgameScreen:GameScreen) 
 	{
 		super();
 		distance = 0;
 		removed = false;
+		exploded = false;
 		gameScreen = newgameScreen;
 		untouched = true;
 		var path :String = "assets/gfx/mine.png";
@@ -46,6 +48,12 @@ class Mine extends Sprite
 		Actuate.tween (mineSprite, 0.5, { alpha:0 } );
 	}
 	
+	public function explodeDamage() {
+		exploded = true;
+		gameScreen.lowerLife();
+		explode();
+	}
+	
 	public function explode()
 	{
 		var sound  = Utils.loadSound ("assets/sound/dm.wav");
@@ -64,7 +72,7 @@ class Mine extends Sprite
 	}
 	
 	public function startBeeping() {
-		if (removed)
+		if (removed || exploded)
 			return;
 		if (beeps == 0) {
 			explode();
@@ -82,6 +90,6 @@ class Mine extends Sprite
 		removed = true;
 		var sound  = Utils.loadSound ("assets/sound/tm.wav");
 		sound.play();
-		Actuate.tween (mineSprite, 4, { alpha:0, x: x + 200, y:Std.random(100) } ).onComplete(setDelete,[]);
+		Actuate.tween (mineSprite, 2, { alpha:0, x: x + 200, y:Std.random(100) } ).onComplete(setDelete,[]);
 	}
 }

@@ -81,6 +81,7 @@ class GameScreen implements Screen, extends Sprite
 		scoreField.x = 6;
 		scoreField.y = 6;
 		scoreField.alpha = 0;
+		scoreField.selectable = false;
 		addChild(scoreField);
 		
 		if (life1 == null){
