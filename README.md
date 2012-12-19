@@ -3,7 +3,7 @@ LD25
 
 A repo to hold my Ludum Dare 25 Entry. This should be a smaller project than the one I submitted for LD23, but we'll see how it goes!
 
-Lunar Frenzy: A game developed in 30 hours.
+Lunar Frenzy: A game developed in 30 hours!
 ===
 "After years of living under the shadow of puny planets, an oversized moon goes rogue, in a revenge-fueled trip across the universe with one goal only: smash all those planets into tiny little pieces. Will it succeed? Or will it fall to the many space-mines that litter the galaxy?" 
 
